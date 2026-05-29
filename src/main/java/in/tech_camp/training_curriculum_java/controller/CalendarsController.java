@@ -30,14 +30,14 @@ public class CalendarsController {
   @GetMapping("/")
   public String index(Model model) {
     model.addAttribute("planForm", new PlanForm());
-    List<Map<String, Object>> weekDays = get_week();
+    List<Map<String, Object>> weekDays = getWeek();
     model.addAttribute("weekDays", weekDays);
     return "calendars/index";
   }
 
   // 予定の保存
   @PostMapping("/calendars")
-  public String create(@ModelAttribute("planForm") @Validated PlanForm planForm, BindingResult result) {
+  public String createPlan(@ModelAttribute("planForm") @Validated PlanForm planForm, BindingResult result) {
     if (!result.hasErrors()) {
       PlanEntity newPlan = new PlanEntity();
       newPlan.setDate(planForm.getDate());
@@ -47,7 +47,7 @@ public class CalendarsController {
     return "redirect:/calendars";
   }
 
-  private List<Map<String, Object>> get_week() {
+  private List<Map<String, Object>> getWeek() {
     List<Map<String, Object>> weekDays = new ArrayList<>();
 
     LocalDate todaysDate = LocalDate.now();
@@ -56,11 +56,12 @@ public class CalendarsController {
     String[] wdays = {"(日)", "(月)", "(火)", "(水)", "(木)", "(金)", "(土)"};
 
     for (int x = 0; x < 7; x++) {
-<<<<<<< Updated upstream
-      Map<String, Object> day_map = new HashMap<String, Object>();
-=======
+
+
+
       Map<String, Object> dayMap = new HashMap<>();
->>>>>>> Stashed changes
+
+
       LocalDate currentDate = todaysDate.plusDays(x);
 
       List<String> todayPlans = new ArrayList<>();
